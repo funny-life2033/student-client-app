@@ -26,13 +26,6 @@ export default class SocketClient {
         console.log("disconnected: ", e);
         if (!this.credential) this.socket = null;
       });
-
-      this.socket.on("connect", () => {
-        console.log("connected");
-        if (this.credential) {
-          this.socket.emit("student client connect", this.credential);
-        }
-      });
     } catch (error) {
       console.log(error);
     }

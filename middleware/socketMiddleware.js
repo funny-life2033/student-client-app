@@ -22,6 +22,14 @@ export default function socketMiddleware(socket) {
       case "auth/login": {
         socket.connect(payload);
 
+        socket.on("connect", () => {
+          console.log("connected");
+          if (socket.credential) {
+            socket.emit("student client connect", socket.credential);
+          }
+          dispatch(initBot());
+        });
+
         socket.on("student client connect success", (detail) => {
           console.log("student client connect success", detail);
           dispatch(loggedIn(detail));
