@@ -13,30 +13,27 @@ const InputCredentials = ({ detail, enteredCredential }) => {
   const { username, credential } = detail;
   const dispatch = useDispatch();
 
-  const [drivingLicenseNumber, setDrivingLicenseNumber] = useState(
-    credential.drivingLicenseNumber
-  );
-  const [drivingTestReferenceNumber, setDrivingTestReferenceNumber] = useState(
-    credential.drivingTestReferenceNumber
-  );
-  const [theoryTestPassNumber, setTheoryTestPassNumber] = useState(
-    credential.theoryTestPassNumber
-  );
-  const [testCentre, setTestCentre] = useState(credential.testCentre);
+  const [drivingLicenseNumber, setDrivingLicenseNumber] = useState("");
+  const [drivingTestReferenceNumber, setDrivingTestReferenceNumber] =
+    useState("");
+  const [theoryTestPassNumber, setTheoryTestPassNumber] = useState("");
+  const [testCentre, setTestCentre] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setDrivingLicenseNumber(credential.drivingLicenseNumber);
-    setDrivingTestReferenceNumber(credential.drivingTestReferenceNumber);
-    setTheoryTestPassNumber(credential.theoryTestPassNumber);
-    setTestCentre(credential.testCentre);
-  }, [
-    credential.drivingLicenseNumber,
-    credential.drivingTestReferenceNumber,
-    credential.theoryTestPassNumber,
-    credential.testCentre,
-  ]);
+    if (credential) {
+      setDrivingLicenseNumber(credential.drivingLicenseNumber);
+      setDrivingTestReferenceNumber(credential.drivingTestReferenceNumber);
+      setTheoryTestPassNumber(credential.theoryTestPassNumber);
+      setTestCentre(credential.testCentre);
+    } else {
+      setDrivingLicenseNumber("");
+      setDrivingTestReferenceNumber("");
+      setTheoryTestPassNumber("");
+      setTestCentre("");
+    }
+  }, [JSON.stringify(credential)]);
 
   const hasErrors = () => {
     return error;
