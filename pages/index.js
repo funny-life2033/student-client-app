@@ -8,7 +8,14 @@ import {
 } from "react-native-alert-notification";
 import InputCredentials from "./inputCredentials";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Appbar, Button, Dialog, Surface, Text } from "react-native-paper";
+import {
+  Appbar,
+  Button,
+  Chip,
+  Dialog,
+  Surface,
+  Text,
+} from "react-native-paper";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { logout } from "../store/authSlice";
 import { useEffect, useState } from "react";
@@ -27,6 +34,7 @@ const Pages = () => {
     (state) => state.bot
   );
 
+  const [errorMsg, setErrorMsg] = useState("asa");
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedDate, selectDate] = useState(null);
 
@@ -36,6 +44,7 @@ const Pages = () => {
 
   useEffect(() => {
     if (errorAlert) {
+      setErrorMsg(errorAlert);
       Toast.show({
         type: ALERT_TYPE.WARNING,
         title: "Error!",
@@ -88,6 +97,19 @@ const Pages = () => {
                 ""
               )}
             </Appbar.Header>
+
+            {errorMsg ? (
+              <Chip
+                icon="information"
+                style={styles.errorDisplay}
+                onPress={() => setErrorMsg(null)}
+              >
+                {errorMsg}
+              </Chip>
+            ) : (
+              ""
+            )}
+
             <ScrollView>
               <View style={styles.bodyContainer}>
                 {isCredentialEntered ? (
@@ -146,6 +168,9 @@ const styles = StyleSheet.create({
     // flex: 1,
     // alignItems: "center",
     // justifyContent: "center",
+  },
+  errorDisplay: {
+    margin: 5,
   },
 });
 
