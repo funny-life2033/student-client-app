@@ -5,7 +5,6 @@ import {
   enterCredential,
   init as initBot,
   setAvailableDates,
-  setIsCredentialEntered,
   setIsWorking,
   started,
   starting,
@@ -24,6 +23,7 @@ export default function socketMiddleware(socket) {
       case "auth/login": {
         socket.connect(payload);
 
+        dispatch(enterCredential());
         socket.on("connect", () => {
           console.log("connected");
           if (socket.credential) {
@@ -34,7 +34,6 @@ export default function socketMiddleware(socket) {
 
         socket.on("student client connect success", (detail) => {
           console.log("student client connect success", detail);
-          dispatch(enterCredential());
           dispatch(loggedIn(detail));
         });
 
@@ -72,7 +71,7 @@ export default function socketMiddleware(socket) {
 
         socket.on("student bot start failed", ({ error, client }) => {
           dispatch(initBot());
-          dispatch(setIsWorking(false));
+          // dispatch(setIsWorking(false));
           dispatch(setDetail(client));
           dispatch(alertError(error));
         });
@@ -87,12 +86,12 @@ export default function socketMiddleware(socket) {
 
         socket.on("student bot connect", () => {
           dispatch(initBot());
-          dispatch(setIsWorking(false));
+          // dispatch(setIsWorking(false));
         });
 
         socket.on("student bot disconnect", () => {
           dispatch(initBot());
-          dispatch(setIsWorking(false));
+          // dispatch(setIsWorking(false));
         });
 
         socket.on("available dates", (availableDates) => {
@@ -117,7 +116,7 @@ export default function socketMiddleware(socket) {
       case "auth/logout": {
         socket.disconnect();
         dispatch(initBot());
-        dispatch(setIsWorking(false));
+        // dispatch(setIsWorking(false));
         break;
       }
       case "auth/setDetail": {
