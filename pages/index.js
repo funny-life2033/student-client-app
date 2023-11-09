@@ -34,7 +34,7 @@ const Pages = () => {
     (state) => state.bot
   );
 
-  const [errorMsg, setErrorMsg] = useState("asa");
+  const [errorMsg, setErrorMsg] = useState(null);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedDate, selectDate] = useState(null);
 
