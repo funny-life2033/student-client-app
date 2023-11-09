@@ -2,8 +2,10 @@ import { loggedIn, loggingFailed, setDetail } from "../store/authSlice";
 import {
   acceptedSlot,
   alertError,
+  enterCredential,
   init as initBot,
   setAvailableDates,
+  setIsCredentialEntered,
   setIsWorking,
   started,
   starting,
@@ -32,6 +34,7 @@ export default function socketMiddleware(socket) {
 
         socket.on("student client connect success", (detail) => {
           console.log("student client connect success", detail);
+          dispatch(enterCredential());
           dispatch(loggedIn(detail));
         });
 
@@ -84,12 +87,12 @@ export default function socketMiddleware(socket) {
 
         socket.on("student bot connect", () => {
           dispatch(initBot());
-          // dispatch(setIsWorking(false));
+          dispatch(setIsWorking(false));
         });
 
         socket.on("student bot disconnect", () => {
           dispatch(initBot());
-          // dispatch(setIsWorking(false));
+          dispatch(setIsWorking(false));
         });
 
         socket.on("available dates", (availableDates) => {

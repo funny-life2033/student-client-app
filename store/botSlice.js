@@ -18,7 +18,7 @@ const botSlice = createSlice({
       // state.isWorking = false;
       state.isStarting = false;
       state.isStopping = false;
-      state.isCredentialEntered = false;
+      // state.isCredentialEntered = false;
       state.availableDates = [];
       state.isAccepting = false;
     },
