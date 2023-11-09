@@ -84,12 +84,12 @@ export default function socketMiddleware(socket) {
 
         socket.on("student bot connect", () => {
           dispatch(initBot());
-          dispatch(setIsWorking(false));
+          // dispatch(setIsWorking(false));
         });
 
         socket.on("student bot disconnect", () => {
           dispatch(initBot());
-          dispatch(setIsWorking(false));
+          // dispatch(setIsWorking(false));
         });
 
         socket.on("available dates", (availableDates) => {
